@@ -5,12 +5,13 @@ namespace GithubEmojis.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private IGithubEmojiService _emojiService;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(IGithubEmojiService emojiSvc)
     {
-        _logger = logger;
+        _emojiService = emojiSvc;
     }
+
 
     public void OnGet()
     {
