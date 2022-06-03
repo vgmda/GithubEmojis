@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace GithubEmojis;
 
 public class GithubEmojiService
@@ -20,6 +22,7 @@ public class GithubEmojiService
             var emojiStr = await _httpClient.GetStringAsync(GithubEmojiUrl);
             try
             {
+
                 // TODO - GetEmojisFrom() method
                 _emojis = GetEmojisFrom(emojiStr);
             }
@@ -30,8 +33,30 @@ public class GithubEmojiService
 
         }
 
-
         return _emojis;
+    }
+
+    public IList<Emoji> GetEmojisFrom(string content)
+    {
+        var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+        var results = new List<Emoji>();
+
+        foreach (var key in dictionary.Keys)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                continue;
+            }
+
+            results.Add(new Emoji
+            {
+                Key = key,
+                Url = dictionary[key]
+            });
+        }
+
+
+        return results;
     }
 
 }
