@@ -12,10 +12,12 @@ public class IndexModel : PageModel
         _emojiService = emojiSvc;
     }
 
+    // Create property
+    public IList<Emoji> Emojis { get; set; }
 
-    public void OnGet()
+    public async Task OnGet()
     {
-
+        Emojis = await _emojiService.GetEmojis();
     }
 }
 
