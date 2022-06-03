@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace GithubEmojis;
 
-public class GithubEmojiService
+public class GithubEmojiService : IGithubEmojiService
 {
     const string GithubEmojiUrl = "https://api.github.com/emojis";
     private readonly HttpClient _httpClient;
