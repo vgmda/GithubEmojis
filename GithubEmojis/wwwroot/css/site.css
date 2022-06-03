@@ -1,18 +1,24 @@
-﻿html {
-  font-size: 14px;
+﻿h1 {
+    text-align: center;
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.allEmojis {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+div.emoji {
+    margin: auto;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-body {
-  margin-bottom: 60px;
+    div.emoji code {
+        display: block;
+    }
+
+code {
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
 }

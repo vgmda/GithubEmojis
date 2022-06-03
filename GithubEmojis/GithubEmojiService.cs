@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace GithubEmojis;
 
@@ -22,15 +25,12 @@ public class GithubEmojiService : IGithubEmojiService
             var emojiStr = await _httpClient.GetStringAsync(GithubEmojiUrl);
             try
             {
-
-                // TODO - GetEmojisFrom() method
                 _emojis = GetEmojisFrom(emojiStr);
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine($"error: {ex.ToString()}");
             }
-
         }
 
         return _emojis;
@@ -43,10 +43,7 @@ public class GithubEmojiService : IGithubEmojiService
 
         foreach (var key in dictionary.Keys)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                continue;
-            }
+            if (string.IsNullOrWhiteSpace(key)) { continue; }
 
             results.Add(new Emoji
             {
@@ -55,9 +52,6 @@ public class GithubEmojiService : IGithubEmojiService
             });
         }
 
-
         return results;
     }
-
 }
-

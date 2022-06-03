@@ -1,50 +1,58 @@
 ﻿using System;
-namespace GithubEmojis;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-public class Startup
+namespace GithubEmojis
 {
-    public IConfiguration Configuration { get; }
-
-    public Startup(IConfiguration configuration)
+    public class Startup
     {
-        Configuration = configuration;
-    }
-
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-        services.Configure<CookiePolicyOptions>(options =>
+        public Startup(IConfiguration configuration)
         {
-            // This lambda determines wheater user conset for non-essential cookies is needed for a given request.
-            options.CheckConsentNeeded = context => true;
-            options.MinimumSameSitePolicy = SameSiteMode.None;
-        });
-
-        services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
-        services.AddSingleton<IGithubEmojiService, GithubEmojiService>();
-
-    }
-
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-            app.UseHsts();
+            Configuration = configuration;
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseCookiePolicy();
+        public IConfiguration Configuration { get; }
 
-        app.UseMvc();
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddSingleton<IGithubEmojiService, GithubEmojiService>();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseMvc();
+        }
     }
-
-
-
 }
-
