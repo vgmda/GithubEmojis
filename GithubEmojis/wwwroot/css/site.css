@@ -8,6 +8,10 @@
     flex-wrap: wrap;
 }
 
+div.emoji code {
+    display: block;
+}
+
 div.emoji {
     margin: auto;
     margin-right: 10px;
@@ -15,10 +19,7 @@ div.emoji {
     vertical-align: middle;
 }
 
-    div.emoji code {
-        display: block;
-    }
-
 code {
     font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+    font-size: 0.8em;
 }
